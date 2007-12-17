@@ -14,7 +14,6 @@ Source0: %{name}.tar.bz2
 License: LGPL
 Group: Development/C
 Url: http://indi.sourceforge.net/
-BuildRoot: %{_tmppath}/%{name}-buildroot
 Provides: indi = %version-%release
 ExclusiveArch: x86_64 %{ix86}
 
