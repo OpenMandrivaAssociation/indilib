@@ -13,6 +13,7 @@ Release: %{release}
 Source0: %{name}.tar.bz2
 License: LGPL
 Group: Development/C
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Url: http://indi.sourceforge.net/
 BuildRequires: zlib-devel
 Provides: indi = %version-%release
