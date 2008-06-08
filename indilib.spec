@@ -1,6 +1,6 @@
 %define name indilib
 %define version 0.3
-%define release %mkrel 2
+%define release %mkrel 4
 
 %define shortname indi
 
