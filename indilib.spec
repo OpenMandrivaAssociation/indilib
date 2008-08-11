@@ -1,21 +1,16 @@
-%define name indilib
-%define version 0.3
-%define release %mkrel 5
-
 %define shortname indi
 
-%define libname %{_lib}%{shortname}
-
 Summary: Library to control astronomical devices
-Name: %{name}
-Version: %{version}
-Release: %{release}
-Source0: %{name}.tar.bz2
-License: LGPL
+Name: indilib
+Version: 0.5
+Release: %mkrel 1
+Source0: http://nchc.dl.sourceforge.net/sourceforge/indi/%name-%version.tar.gz
+Patch0: indilib-0.5-gcc-4.3.patch
+License: LGPLv2+
 Group: Development/C
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Url: http://indi.sourceforge.net/
-BuildRequires: zlib-devel
+BuildRequires: zlib-devel libusb-devel
 Provides: indi = %version-%release
 ExclusiveArch: x86_64 %{ix86}
 
@@ -24,13 +19,27 @@ INDI is an instrument neutral distributed interface control protocol
 that aims to provide backend driver support and automation for a wide
 range of Astronomical devices (telescopes, focusers, CCDs..etc).
 
-%package -n %libname-devel
+%define libname %mklibname %shortname 0
+%package -n %libname
+Summary: Librar file for INDI
+Group: Development/C
+
+%description -n %libname
+INDI is an instrument neutral distributed interface control protocol
+that aims to provide backend driver support and automation for a wide
+range of Astronomical devices (telescopes, focusers, CCDs..etc).
+
+This package contains library files of indilib.
+
+%define develname %mklibname -d %shortname
+%package -n %develname
 Summary: INDI devellopment files
 Group: Development/C
 Provides: indi-devel = %version-%release
 Provides: %name-devel = %version-%release
+Obsoletes: %{_lib}indi-devel
 
-%description -n %libname-devel
+%description -n %develname
 INDI is an instrument neutral distributed interface control protocol
 that aims to provide backend driver support and automation for a wide
 range of Astronomical devices (telescopes, focusers, CCDs..etc).
@@ -39,24 +48,17 @@ This package contains files need to build applications using indilib.
 
 %prep
 %setup -q -n %shortname
-
-find . -name "CVS"        -depth -exec rm -fr {} \;
-find . -name ".cvsignore" -depth -exec rm -fr {} \;
+%patch0 -p0
 
 %build
-%configure
-
+%configure2_5x --disable-static --enable-libusb
 %make
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
 %makeinstall_std
 
-mkdir -p %buildroot{%_libdir,%_includedir}
-
-cp src/*.a %buildroot%_libdir/
-
+mkdir -p %buildroot%_includedir
 cp src/*.h %buildroot%_includedir
 
 %clean
@@ -68,10 +70,15 @@ rm -rf $RPM_BUILD_ROOT
 %_bindir/*
 %_datadir/%shortname
 
-%files -n %libname-devel
+%files -n %libname
+%defattr(-,root,root)
+%{_libdir}/*.so.0*
+
+%files -n %develname
 %defattr(-,root,root)
 %doc ChangeLog src/README
-%doc src/examples src/INDI.dtd
-%_libdir/*
+%doc src/examples
+%_libdir/*.so
+%_libdir/*.la
 %_includedir/*.h
 
