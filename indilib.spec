@@ -11,6 +11,7 @@ Group: Development/C
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Url: http://indi.sourceforge.net/
 BuildRequires: zlib-devel libusb-devel
+BuildRequires: cfitsio-devel >= 3.090
 Provides: indi = %version-%release
 ExclusiveArch: x86_64 %{ix86}
 
