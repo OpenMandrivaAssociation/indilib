@@ -4,7 +4,7 @@
 Summary: Library to control astronomical devices
 Name: indilib
 Version: 0.6
-Release: %mkrel -c %svn 1
+Release: %mkrel -c %svn 2
 %if svn
 Source0: libindi-r%svn.tar.bz2
 %else
