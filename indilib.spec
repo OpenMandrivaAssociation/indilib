@@ -10,7 +10,7 @@ Source0: libindi-r%svn.tar.bz2
 %else
 Source0: http://nchc.dl.sourceforge.net/sourceforge/indi/%name-%version.tar.gz
 %endif
-Patch0: indilib-0.5-gcc-4.3.patch
+Patch1: libindi-0.6-libsuffix.patch
 License: LGPLv2+
 Group: Development/C
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -55,6 +55,7 @@ This package contains files need to build applications using indilib.
 
 %prep
 %setup -q -n libindi
+%patch1 -p0
 
 %build
 %cmake
