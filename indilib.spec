@@ -4,7 +4,7 @@
 Summary: Library to control astronomical devices
 Name: indilib
 Version: 0.6
-Release: %mkrel -c %svn 3
+Release: %mkrel -c %svn 4
 %if svn
 Source0: libindi-r%svn.tar.bz2
 %else
@@ -42,6 +42,7 @@ This package contains library files of indilib.
 %package -n %develname
 Summary: INDI devellopment files
 Group: Development/C
+Requires: %libname = %version
 Provides: indi-devel = %version-%release
 Provides: %name-devel = %version-%release
 
