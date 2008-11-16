@@ -1,10 +1,15 @@
 %define shortname indi
 
+%define svn 190
 Summary: Library to control astronomical devices
 Name: indilib
-Version: 0.5
-Release: %mkrel 1
+Version: 0.6
+Release: %mkrel -c %svn 1
+%if svn
+Source0: libindi-r%svn.tar.bz2
+%else
 Source0: http://nchc.dl.sourceforge.net/sourceforge/indi/%name-%version.tar.gz
+%endif
 Patch0: indilib-0.5-gcc-4.3.patch
 License: LGPLv2+
 Group: Development/C
@@ -12,8 +17,9 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Url: http://indi.sourceforge.net/
 BuildRequires: zlib-devel libusb-devel
 BuildRequires: cfitsio-devel >= 3.090
+BuildRequires: libfli-devel
+BuildRequires: cmake
 Provides: indi = %version-%release
-ExclusiveArch: x86_64 %{ix86}
 
 %description
 INDI is an instrument neutral distributed interface control protocol
@@ -48,19 +54,15 @@ range of Astronomical devices (telescopes, focusers, CCDs..etc).
 This package contains files need to build applications using indilib.
 
 %prep
-%setup -q -n %shortname
-%patch0 -p0
+%setup -q -n libindi
 
 %build
-%configure2_5x --disable-static --enable-libusb
+%cmake
 %make
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%makeinstall_std
-
-mkdir -p %buildroot%_includedir
-cp src/*.h %buildroot%_includedir
+%makeinstall_std -C build
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -77,9 +79,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n %develname
 %defattr(-,root,root)
-%doc ChangeLog src/README
-%doc src/examples
+%doc ChangeLog README* NEWS
 %_libdir/*.so
-%_libdir/*.la
-%_includedir/*.h
-
+%_libdir/*.a
+%_includedir/libindi/*.h
