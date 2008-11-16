@@ -4,7 +4,7 @@
 Summary: Library to control astronomical devices
 Name: indilib
 Version: 0.6
-Release: %mkrel -c %svn 2
+Release: %mkrel -c %svn 3
 %if svn
 Source0: libindi-r%svn.tar.bz2
 %else
@@ -44,7 +44,6 @@ Summary: INDI devellopment files
 Group: Development/C
 Provides: indi-devel = %version-%release
 Provides: %name-devel = %version-%release
-Obsoletes: %{_lib}indi-devel
 
 %description -n %develname
 INDI is an instrument neutral distributed interface control protocol
