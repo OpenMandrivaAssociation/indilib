@@ -1,15 +1,10 @@
 %define shortname indi
 
-%define svn 190
 Summary: Library to control astronomical devices
 Name: indilib
 Version: 0.6
-Release: %mkrel -c %svn 4
-%if svn
-Source0: libindi-r%svn.tar.bz2
-%else
-Source0: http://nchc.dl.sourceforge.net/sourceforge/indi/%name-%version.tar.gz
-%endif
+Release: %mkrel 1
+Source0: http://downloads.sourceforge.net/indi/libindi0_%version.tar.gz
 Patch1: libindi-0.6-libsuffix.patch
 License: LGPLv2+
 Group: Development/C
@@ -54,7 +49,7 @@ range of Astronomical devices (telescopes, focusers, CCDs..etc).
 This package contains files need to build applications using indilib.
 
 %prep
-%setup -q -n libindi
+%setup -q -n libindi0-%version
 %patch1 -p0
 
 %build
