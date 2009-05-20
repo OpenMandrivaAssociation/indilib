@@ -6,6 +6,7 @@ Version: 0.6
 Release: %mkrel 1
 Source0: http://downloads.sourceforge.net/indi/libindi0_%version.tar.gz
 Patch1: libindi-0.6-libsuffix.patch
+Patch2: libindi0_0.6-fix-str-fmt.patch
 License: LGPLv2+
 Group: Development/C
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -51,6 +52,7 @@ This package contains files need to build applications using indilib.
 %prep
 %setup -q -n libindi0-%version
 %patch1 -p0
+%patch2 -p0
 
 %build
 %cmake
