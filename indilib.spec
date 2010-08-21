@@ -3,7 +3,7 @@
 Summary: Library to control astronomical devices
 Name: indilib
 Version: 0.6
-Release: %mkrel 2
+Release: %mkrel 3
 Source0: http://downloads.sourceforge.net/indi/libindi0_%version.tar.gz
 Patch1: libindi-0.6-libsuffix.patch
 Patch2: libindi0_0.6-fix-str-fmt.patch
