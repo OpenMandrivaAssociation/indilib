@@ -2,12 +2,11 @@
 
 Summary: Library to control astronomical devices
 Name: indilib
-Version: 0.6
-Release: %mkrel 4
-Source0: http://downloads.sourceforge.net/indi/libindi0_%version.tar.gz
-Patch1: libindi-0.6-libsuffix.patch
+Version: 0.6.2
+Release: %mkrel 1
+Source0: http://downloads.sourceforge.net/indi/libindi_%version.tar.gz
+Patch1: libindi-0.6.2-libsuffix.patch
 Patch2: libindi0_0.6-fix-str-fmt.patch
-Patch3: libindi0_0.6-cfistio-prefix.patch
 License: LGPLv2+
 Group: Development/C
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -51,10 +50,9 @@ range of Astronomical devices (telescopes, focusers, CCDs..etc).
 This package contains files need to build applications using indilib.
 
 %prep
-%setup -q -n libindi0-%version
+%setup -q -n libindi-%version
 %patch1 -p0
 %patch2 -p0
-%patch3 -p0
 
 %build
 %cmake
@@ -82,4 +80,5 @@ rm -rf $RPM_BUILD_ROOT
 %doc ChangeLog README* NEWS
 %_libdir/*.so
 %_libdir/*.a
+%_libdir/pkgconfig/libindi.pc
 %_includedir/libindi/*.h
