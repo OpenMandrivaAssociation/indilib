@@ -74,7 +74,7 @@ This package contains files need to build applications using indilib.
 
 %prep
 %setup -q -n libindi-%version
-%patch1 -p0
+%apply_patches
 
 %build
 %cmake
