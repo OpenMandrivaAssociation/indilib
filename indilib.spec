@@ -3,17 +3,18 @@
 Summary: Library to control astronomical devices
 Name: indilib
 Version: 0.8
-Release: 1
+Release: %mkrel 1
 Source0: http://downloads.sourceforge.net/indi/libindi_%version.tar.gz
 Patch1: libindi-0.8-libsuffix.patch
+Patch2: libindi0_0.6-fix-str-fmt.patch
 License: LGPLv2+
 Group: Development/C
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Url: http://indi.sourceforge.net/
 BuildRequires: zlib-devel libusb-devel
 BuildRequires: cfitsio-devel >= 3.090
 BuildRequires: libfli-devel
 BuildRequires: cmake
+BuildRequires: boost-devel
 Provides: indi = %version-%release
 
 %description
@@ -29,7 +30,9 @@ range of Astronomical devices (telescopes, focusers, CCDs..etc).
 
 #--------------------------------------------------------------------
 
-%define libname %mklibname %shortname 0
+%define major 0
+%define libname %mklibname %shortname %major
+
 %package -n %libname
 Summary: Librar file for INDI
 Group: Development/C
@@ -43,7 +46,7 @@ This package contains library files of indilib.
 
 %files -n %libname
 %defattr(-,root,root)
-%{_libdir}/*.so.0*
+%{_libdir}/*.so.%{major}*
 
 #--------------------------------------------------------------------
 
@@ -74,7 +77,8 @@ This package contains files need to build applications using indilib.
 
 %prep
 %setup -q -n libindi-%version
-%apply_patches
+%patch1 -p1
+%patch2 -p0
 
 %build
 %cmake
@@ -82,4 +86,3 @@ This package contains files need to build applications using indilib.
 
 %install
 %makeinstall_std -C build
-
