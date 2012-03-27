@@ -5,8 +5,6 @@ Version:	0.9
 Release:	1
 Summary:	Library to control astronomical devices
 Source0:	http://downloads.sourceforge.net/indi/libindi_%{version}.tar.gz
-Patch1:		libindi-0.8-libsuffix.patch
-Patch2:		libindi0_0.6-fix-str-fmt.patch
 License:	LGPLv2+
 Group:		Development/C
 Url:		http://indi.sourceforge.net/
@@ -76,8 +74,6 @@ This package contains files need to build applications using indilib.
 
 %prep
 %setup -q -n libindi-%{version}
-%patch1 -p1
-%patch2 -p0
 
 %build
 %cmake
