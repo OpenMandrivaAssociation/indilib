@@ -1,7 +1,7 @@
 %define shortname indi
 
 Name:		indilib
-Version:	0.9
+Version:	0.9.5
 Release:	1
 Summary:	Library to control astronomical devices
 Source0:	http://downloads.sourceforge.net/indi/libindi_%{version}.tar.gz
@@ -66,12 +66,30 @@ This package contains files need to build applications using indilib.
 %files -n %{develname}
 %doc ChangeLog README* NEWS
 %{_libdir}/*.so
-%{_libdir}/*.a
 %{_libdir}/pkgconfig/libindi.pc
 %{_includedir}/libindi/*.h
 
 #--------------------------------------------------------------------
+%define develnamestatic %mklibname -d -s %{shortname}
 
+%package -n %{develnamestatic}
+Summary:	INDI devellopment files
+Group:		Development/C
+Requires:	%{name}-devel = %{version}-%{release}
+Provides:	indi-devel-static = %{version}-%{release}
+Provides:	%{name}-devel-static = %{version}-%{release}
+
+%description -n %{develnamestatic}
+INDI is an instrument neutral distributed interface control protocol
+that aims to provide backend driver support and automation for a wide
+range of Astronomical devices (telescopes, focusers, CCDs..etc).
+
+This package contains files need to build applications using indilib.
+
+%files -n %{develnamestatic}
+%{_libdir}/*.a
+
+#-------------------------------------------------------------------
 %prep
 %setup -q -n libindi-%{version}
 
