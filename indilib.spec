@@ -1,13 +1,16 @@
+%define _disable_ld_no_undefined 1
+
 %define shortname indi
 
 Name:		indilib
-Version:	0.9.5
+Version:	0.9.6
 Release:	1
 Summary:	Library to control astronomical devices
-Source0:	http://downloads.sourceforge.net/indi/libindi_%{version}.tar.gz
 License:	LGPLv2+
 Group:		Development/C
 Url:		http://indi.sourceforge.net/
+Source0:	http://downloads.sourceforge.net/indi/libindi_%{version}.tar.gz
+Patch0:		libindi-0.9.6-linkage.patch
 BuildRequires:	zlib-devel
 BuildRequires:	libusb-devel
 BuildRequires:	cfitsio-devel >= 3.090
@@ -25,6 +28,7 @@ range of Astronomical devices (telescopes, focusers, CCDs..etc).
 %doc ChangeLog NEWS README TODO
 %{_bindir}/*
 %{_datadir}/%{shortname}
+%{_sysconfdir}/udev/rules.d/99-gpusb.rules
 
 #--------------------------------------------------------------------
 
@@ -92,6 +96,7 @@ This package contains files need to build applications using indilib.
 #-------------------------------------------------------------------
 %prep
 %setup -q -n libindi-%{version}
+%patch0 -p1
 
 %build
 %cmake
