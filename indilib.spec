@@ -11,12 +11,13 @@ Group:		Development/C
 Url:		http://indi.sourceforge.net/
 Source0:	http://downloads.sourceforge.net/indi/libindi_%{version}.tar.gz
 Patch0:		libindi-0.9.6-linkage.patch
-BuildRequires:	zlib-devel
-BuildRequires:	libusb-devel
-BuildRequires:	cfitsio-devel >= 3.090
-BuildRequires:	libfli-devel
+
 BuildRequires:	cmake
 BuildRequires:	boost-devel
+BuildRequires:	libfli-devel
+BuildRequires:	pkgconfig(cfitsio)
+BuildRequires:	pkgconfig(libusb)
+BuildRequires:	pkgconfig(zlib)
 Provides:	indi = %{version}-%{release}
 
 %description
@@ -47,7 +48,7 @@ range of Astronomical devices (telescopes, focusers, CCDs..etc).
 This package contains library files of indilib.
 
 %files -n %{libname}
-%{_libdir}/*.so.%{major}*
+%{_libdir}/libindi.so.%{major}*
 
 #--------------------------------------------------------------------
 
@@ -95,8 +96,8 @@ This package contains files need to build applications using indilib.
 
 #-------------------------------------------------------------------
 %prep
-%setup -q -n libindi-%{version}
-%patch0 -p1
+%setup -qn libindi-%{version}
+%apply_patches
 
 %build
 %cmake
