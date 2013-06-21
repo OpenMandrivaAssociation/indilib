@@ -75,7 +75,7 @@ This package contains files need to build applications using indilib.
 %{_includedir}/libindi/*.h
 
 #--------------------------------------------------------------------
-%define devnamestatic %mklibname -d -s %{shortname}
+%define sdevname %mklibname -d -s %{shortname}
 
 %package -n %{sdevname}
 Summary:	INDI devellopment files
