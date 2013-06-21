@@ -48,50 +48,50 @@ range of Astronomical devices (telescopes, focusers, CCDs..etc).
 This package contains library files of indilib.
 
 %files -n %{libname}
-%{_libdir}/libindi.so.%{major}*
+%{_libdir}/lib*.so.%{major}*
 
 #--------------------------------------------------------------------
 
-%define develname %mklibname -d %{shortname}
+%define devname %mklibname -d %{shortname}
 
-%package -n %{develname}
+%package -n %{devname}
 Summary:	INDI devellopment files
 Group:		Development/C
 Requires:	%{libname} = %{version}-%{release}
 Provides:	indi-devel = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release}
 
-%description -n %{develname}
+%description -n %{devname}
 INDI is an instrument neutral distributed interface control protocol
 that aims to provide backend driver support and automation for a wide
 range of Astronomical devices (telescopes, focusers, CCDs..etc).
 
 This package contains files need to build applications using indilib.
 
-%files -n %{develname}
+%files -n %{devname}
 %doc ChangeLog README* NEWS
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/libindi.pc
 %{_includedir}/libindi/*.h
 
 #--------------------------------------------------------------------
-%define develnamestatic %mklibname -d -s %{shortname}
+%define devnamestatic %mklibname -d -s %{shortname}
 
-%package -n %{develnamestatic}
+%package -n %{sdevname}
 Summary:	INDI devellopment files
 Group:		Development/C
 Requires:	%{name}-devel = %{version}-%{release}
 Provides:	indi-devel-static = %{version}-%{release}
 Provides:	%{name}-devel-static = %{version}-%{release}
 
-%description -n %{develnamestatic}
+%description -n %{sdevname}
 INDI is an instrument neutral distributed interface control protocol
 that aims to provide backend driver support and automation for a wide
 range of Astronomical devices (telescopes, focusers, CCDs..etc).
 
 This package contains files need to build applications using indilib.
 
-%files -n %{develnamestatic}
+%files -n %{sdevname}
 %{_libdir}/*.a
 
 #-------------------------------------------------------------------
