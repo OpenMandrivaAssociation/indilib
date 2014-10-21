@@ -1,22 +1,34 @@
 %define _disable_ld_no_undefined 1
 
+%define major 0
+%define libname %mklibname indi %{major}
+%define libindidriver %mklibname indidriver %{major}
+%define libindimain %mklibname indimain %{major}
+%define libindiAD %mklibname indiAlignmentDriver %{major}
+%define devname %mklibname indi -d
+%define sdevname %mklibname indi -d -s
+
 Summary:	Library to control astronomical devices
 Name:		indilib
-Version:	0.9.6
-Release:	8
+Version:	0.9.8.1
+Release:	1
 License:	LGPLv2+
 Group:		Development/C
 Url:		http://indi.sourceforge.net/
 Source0:	http://downloads.sourceforge.net/indi/libindi_%{version}.tar.gz
-Patch0:		libindi-0.9.6-linkage.patch
-
+Patch0:		libindi-0.9.8-static-client.patch
+Patch1:		libindi-0.9.8.1-mathplugin.patch
 BuildRequires:	cmake
+BuildRequires:	systemd-units
 BuildRequires:	boost-devel
+BuildRequires:	jpeg-devel
 BuildRequires:	libfli-devel
+BuildRequires:	libnova-devel
 BuildRequires:	pkgconfig(cfitsio)
+BuildRequires:	pkgconfig(gsl)
 BuildRequires:	pkgconfig(libusb)
 BuildRequires:	pkgconfig(zlib)
-Provides:	indi = %{version}-%{release}
+Provides:	indi = %{EVRD}
 
 %description
 INDI is an instrument neutral distributed interface control protocol
@@ -27,12 +39,10 @@ range of Astronomical devices (telescopes, focusers, CCDs..etc).
 %doc ChangeLog NEWS README TODO
 %{_bindir}/*
 %{_datadir}/indi
-%{_sysconfdir}/udev/rules.d/99-gpusb.rules
+%{_libdir}/indi
+%{_udevrulesdir}/99-gpusb.rules
 
-#--------------------------------------------------------------------
-
-%define major 0
-%define libname %mklibname indi %{major}
+#----------------------------------------------------------------------------
 
 %package -n %{libname}
 Summary:	Library files for INDI
@@ -48,58 +58,55 @@ This package contains library files of indilib.
 %files -n %{libname}
 %{_libdir}/libindi.so.%{major}*
 
-#--------------------------------------------------------------------
+#----------------------------------------------------------------------------
 
-%define driver_major 0
-%define libname_driver %mklibname indidriver %{driver_major}
-
-%package -n %{libname_driver}
+%package -n %{libindidriver}
 Summary:	Library files for INDI
 Group:		Development/C
-Conflicts:	%{_lib}indi0 < 0.9.6-2
+Conflicts:	%{_lib}indi0 < 0.9.8
 
-%description -n %{libname_driver}
-INDI is an instrument neutral distributed interface control protocol
-that aims to provide backend driver support and automation for a wide
-range of Astronomical devices (telescopes, focusers, CCDs..etc).
-
+%description -n %{libindidriver}
 This package contains library files of indilib.
 
-%files -n %{libname_driver}
-%{_libdir}/libindidriver.so.%{driver_major}*
+%files -n %{libindidriver}
+%{_libdir}/libindidriver.so.%{major}*
 
-#--------------------------------------------------------------------
+#----------------------------------------------------------------------------
 
-%define main_major 0
-%define libname_main %mklibname indimain %{main_major}
-
-%package -n %{libname_main}
+%package -n %{libindimain}
 Summary:	Library files for INDI
 Group:		Development/C
-Conflicts:	%{_lib}indi0 < 0.9.6-2
+Conflicts:	%{_lib}indi0 < 0.9.8
 
-%description -n %{libname_main}
-INDI is an instrument neutral distributed interface control protocol
-that aims to provide backend driver support and automation for a wide
-range of Astronomical devices (telescopes, focusers, CCDs..etc).
-
+%description -n %{libindimain}
 This package contains library files of indilib.
 
-%files -n %{libname_main}
-%{_libdir}/libindimain.so.%{main_major}*
+%files -n %{libindimain}
+%{_libdir}/libindimain.so.%{major}*
 
-#--------------------------------------------------------------------
+#----------------------------------------------------------------------------
 
-%define devname %mklibname -d indi
+%package -n %{libindiAD}
+Summary:	Library files for INDI
+Group:		Development/C
+
+%description -n %{libindiAD}
+This package contains library files of indilib.
+
+%files -n %{libindiAD}
+%{_libdir}/libindiAlignmentDriver.so.%{major}*
+
+#----------------------------------------------------------------------------
 
 %package -n %{devname}
 Summary:	INDI devellopment files
 Group:		Development/C
-Requires:	%{libname} = %{version}-%{release}
-Requires:	%{libname_driver} = %{version}-%{release}
-Requires:	%{libname_main} = %{version}-%{release}
-Provides:	indi-devel = %{version}-%{release}
-Provides:	%{name}-devel = %{version}-%{release}
+Requires:	%{libname} = %{EVRD}
+Requires:	%{libindidriver} = %{EVRD}
+Requires:	%{libindimain} = %{EVRD}
+Requires:	%{libindiAD} = %{EVRD}
+Provides:	%{name}-devel = %{EVRD}
+Provides:	indi-devel = %{EVRD}
 
 %description -n %{devname}
 INDI is an instrument neutral distributed interface control protocol
@@ -110,19 +117,21 @@ This package contains files need to build applications using indilib.
 
 %files -n %{devname}
 %doc ChangeLog README* NEWS
-%{_libdir}/*.so
+%{_libdir}/libindi.so
+%{_libdir}/libindidriver.so
+%{_libdir}/libindimain.so
+%{_libdir}/libindiAlignmentDriver.so
 %{_libdir}/pkgconfig/libindi.pc
 %{_includedir}/libindi/*.h
 
-#--------------------------------------------------------------------
-%define sdevname %mklibname -d -s indi
+#----------------------------------------------------------------------------
 
 %package -n %{sdevname}
 Summary:	INDI devellopment files
 Group:		Development/C
-Requires:	%{name}-devel = %{version}-%{release}
-Provides:	indi-devel-static = %{version}-%{release}
-Provides:	%{name}-devel-static = %{version}-%{release}
+Requires:	%{name}-devel = %{EVRD}
+Provides:	indi-devel-static = %{EVRD}
+Provides:	%{name}-devel-static = %{EVRD}
 
 %description -n %{sdevname}
 INDI is an instrument neutral distributed interface control protocol
@@ -134,10 +143,12 @@ This package contains files need to build applications using indilib.
 %files -n %{sdevname}
 %{_libdir}/*.a
 
-#-------------------------------------------------------------------
+#----------------------------------------------------------------------------
+
 %prep
-%setup -qn libindi-%{version}
-%apply_patches
+%setup -qn libindi-0.9.8
+%patch0 -p1
+%patch1 -p1
 
 %build
 %cmake
