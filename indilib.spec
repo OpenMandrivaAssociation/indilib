@@ -11,7 +11,7 @@
 Summary:	Library to control astronomical devices
 Name:		indilib
 Version:	0.9.8.1
-Release:	2
+Release:	3
 License:	LGPLv2+
 Group:		Development/C
 Url:		http://indi.sourceforge.net/
