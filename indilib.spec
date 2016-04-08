@@ -22,7 +22,7 @@ BuildRequires:	jpeg-devel
 BuildRequires:	libfli-devel
 BuildRequires:	libnova-devel
 BuildRequires:	pkgconfig(cfitsio)
-BuildRequires:	pkgconfig(curl)
+BuildRequires:	pkgconfig(libcurl)
 BuildRequires:	pkgconfig(gsl)
 BuildRequires:	pkgconfig(libusb)
 BuildRequires:	pkgconfig(zlib)
