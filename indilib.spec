@@ -1,23 +1,20 @@
 %define _disable_ld_no_undefined 1
 
-%define major 0
+%define major 1
 %define libname %mklibname indi %{major}
 %define libindidriver %mklibname indidriver %{major}
-%define libindimain %mklibname indimain %{major}
 %define libindiAD %mklibname indiAlignmentDriver %{major}
 %define devname %mklibname indi -d
 %define sdevname %mklibname indi -d -s
 
 Summary:	Library to control astronomical devices
 Name:		indilib
-Version:	0.9.8.1
-Release:	3
+Version:	1.2.0
+Release:	1
 License:	LGPLv2+
 Group:		Development/C
 Url:		http://indi.sourceforge.net/
 Source0:	http://downloads.sourceforge.net/indi/libindi_%{version}.tar.gz
-Patch0:		libindi-0.9.8-static-client.patch
-Patch1:		libindi-0.9.8.1-mathplugin.patch
 BuildRequires:	cmake
 BuildRequires:	systemd-units
 BuildRequires:	boost-devel
@@ -40,7 +37,7 @@ range of Astronomical devices (telescopes, focusers, CCDs..etc).
 %{_bindir}/*
 %{_datadir}/indi
 %{_libdir}/indi
-%{_udevrulesdir}/99-gpusb.rules
+%{_udevrulesdir}/*.rules
 
 #----------------------------------------------------------------------------
 
@@ -73,19 +70,6 @@ This package contains library files of indilib.
 
 #----------------------------------------------------------------------------
 
-%package -n %{libindimain}
-Summary:	Library files for INDI
-Group:		Development/C
-Conflicts:	%{_lib}indi0 < 0.9.8
-
-%description -n %{libindimain}
-This package contains library files of indilib.
-
-%files -n %{libindimain}
-%{_libdir}/libindimain.so.%{major}*
-
-#----------------------------------------------------------------------------
-
 %package -n %{libindiAD}
 Summary:	Library files for INDI
 Group:		Development/C
@@ -103,7 +87,6 @@ Summary:	INDI devellopment files
 Group:		Development/C
 Requires:	%{libname} = %{EVRD}
 Requires:	%{libindidriver} = %{EVRD}
-Requires:	%{libindimain} = %{EVRD}
 Requires:	%{libindiAD} = %{EVRD}
 Provides:	%{name}-devel = %{EVRD}
 Provides:	indi-devel = %{EVRD}
@@ -119,10 +102,10 @@ This package contains files need to build applications using indilib.
 %doc ChangeLog README* NEWS
 %{_libdir}/libindi.so
 %{_libdir}/libindidriver.so
-%{_libdir}/libindimain.so
 %{_libdir}/libindiAlignmentDriver.so
 %{_libdir}/pkgconfig/libindi.pc
 %{_includedir}/libindi/*.h
+%{_includedir}/libindi/alignment/
 
 #----------------------------------------------------------------------------
 
@@ -146,9 +129,7 @@ This package contains files need to build applications using indilib.
 #----------------------------------------------------------------------------
 
 %prep
-%setup -qn libindi-0.9.8
-%patch0 -p1
-%patch1 -p1
+%setup -qn libindi_%{version}
 
 %build
 %cmake
