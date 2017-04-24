@@ -9,11 +9,11 @@
 
 Summary:	Library to control astronomical devices
 Name:		indilib
-Version:	1.2.0
+Version:	1.4.1
 Release:	1
 License:	LGPLv2+
 Group:		Development/C
-Url:		http://indi.sourceforge.net/
+Url:		http://www.indilib.org/
 Source0:	http://downloads.sourceforge.net/indi/libindi_%{version}.tar.gz
 BuildRequires:	cmake
 BuildRequires:	systemd-units
@@ -42,26 +42,11 @@ range of Astronomical devices (telescopes, focusers, CCDs..etc).
 
 #----------------------------------------------------------------------------
 
-%package -n %{libname}
-Summary:	Library files for INDI
-Group:		Development/C
-
-%description -n %{libname}
-INDI is an instrument neutral distributed interface control protocol
-that aims to provide backend driver support and automation for a wide
-range of Astronomical devices (telescopes, focusers, CCDs..etc).
-
-This package contains library files of indilib.
-
-%files -n %{libname}
-%{_libdir}/libindi.so.%{major}*
-
-#----------------------------------------------------------------------------
-
 %package -n %{libindidriver}
 Summary:	Library files for INDI
 Group:		Development/C
 Conflicts:	%{_lib}indi0 < 0.9.8
+Obsoletes:	%{libname} < %{EVRD}
 
 %description -n %{libindidriver}
 This package contains library files of indilib.
@@ -86,7 +71,6 @@ This package contains library files of indilib.
 %package -n %{devname}
 Summary:	INDI devellopment files
 Group:		Development/C
-Requires:	%{libname} = %{EVRD}
 Requires:	%{libindidriver} = %{EVRD}
 Requires:	%{libindiAD} = %{EVRD}
 Provides:	%{name}-devel = %{EVRD}
@@ -101,7 +85,6 @@ This package contains files need to build applications using indilib.
 
 %files -n %{devname}
 %doc ChangeLog README* NEWS
-%{_libdir}/libindi.so
 %{_libdir}/libindidriver.so
 %{_libdir}/libindiAlignmentDriver.so
 %{_libdir}/pkgconfig/libindi.pc
@@ -130,7 +113,7 @@ This package contains files need to build applications using indilib.
 #----------------------------------------------------------------------------
 
 %prep
-%setup -qn libindi_%{version}
+%setup -qn libindi
 
 %build
 %cmake
