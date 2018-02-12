@@ -9,13 +9,14 @@
 
 Summary:	Library to control astronomical devices
 Name:		indilib
-Version:	1.4.1
-Release:	2
+Version:	1.6.2
+Release:	1
 License:	LGPLv2+
 Group:		Development/C
 Url:		http://www.indilib.org/
 Source0:	http://downloads.sourceforge.net/indi/libindi_%{version}.tar.gz
 BuildRequires:	cmake
+BuildRequires:	ninja
 BuildRequires:	systemd-units
 BuildRequires:	boost-devel
 BuildRequires:	jpeg-devel
@@ -90,6 +91,8 @@ This package contains files need to build applications using indilib.
 %{_libdir}/pkgconfig/libindi.pc
 %{_includedir}/libindi/*.h
 %{_includedir}/libindi/alignment/
+%{_includedir}/libindi/connectionplugins/
+%{_includedir}/libindi/stream/
 
 #----------------------------------------------------------------------------
 
@@ -114,11 +117,14 @@ This package contains files need to build applications using indilib.
 
 %prep
 %setup -qn libindi
+# FIXME gcc hardcode is a workaround for clang crash seen on x86_64 with
+# clang 6.0.0-0.322287.2, remove once clang bug is fixed
+CC=gcc CXX=g++ \
+%cmake -G Ninja
 
 %build
-%cmake
-%make
+%ninja_build -C build
 
 %install
-%makeinstall_std -C build
+%ninja_install -C build
 
