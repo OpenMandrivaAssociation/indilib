@@ -1,4 +1,5 @@
 %define _disable_ld_no_undefined 1
+%define _disable_lto 1
 
 %define major 1
 %define libname %mklibname indi %{major}
@@ -10,7 +11,7 @@
 Summary:	Library to control astronomical devices
 Name:		indilib
 Version:	1.6.2
-Release:	1
+Release:	2
 License:	LGPLv2+
 Group:		Development/C
 Url:		http://www.indilib.org/
