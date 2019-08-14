@@ -12,12 +12,13 @@
 Summary:	Library to control astronomical devices
 Name:		indilib
 Version:	1.8.0
-Release:	4
+Release:	1
 License:	LGPLv2+
 Group:		Development/C
 Url:		http://www.indilib.org/
 Source0:	https://github.com/indilib/indi/archive/v%{version}/%{oname}-%{version}.tar.gz
 BuildRequires:	cmake
+BuildRequires:	qmake5
 BuildRequires:	ninja
 BuildRequires:	systemd-units
 BuildRequires:	boost-devel
