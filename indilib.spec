@@ -119,14 +119,12 @@ This package contains files need to build applications using indilib.
 
 %prep
 %setup -qn %{oname}-%{version}
-# FIXME gcc hardcode is a workaround for clang crash seen on x86_64 with
-# clang 6.0.0-0.322287.2, remove once clang bug is fixed
-CC=gcc CXX=g++ \
-%cmake -G Ninja
 
 %build
-%ninja_build -C build
+%cmake  \
+	-DUDEVRULES_INSTALL_DIR=%{_udevrulesdir} \
+	-DINDI_BUILD_QT5_CLIENT=ON \
+	../libindi
 
-%install
-%ninja_install -C build
+%make_build
 
