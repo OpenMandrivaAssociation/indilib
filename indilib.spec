@@ -27,8 +27,13 @@ BuildRequires:	libnova-devel
 BuildRequires:	pkgconfig(cfitsio)
 BuildRequires:	pkgconfig(libcurl)
 BuildRequires:	pkgconfig(gsl)
+BuildRequires:  pkgconfig(gmock)
 BuildRequires:	pkgconfig(libusb)
 BuildRequires:	pkgconfig(zlib)
+BuildRequires:  pkgconfig(Qt5Core)
+BuildRequires:  pkgconfig(Qt5Gui)
+BuildRequires:  pkgconfig(Qt5Network)
+BuildRequires:  pkgconfig(Qt5Widgets)
 Provides:	indi = %{EVRD}
 
 %description
