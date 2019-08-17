@@ -73,7 +73,7 @@ Group:		Development/C
 This package contains library files of indilib.
 
 %files -n %{libindiAD}
-%{_libdir}/libindiAlignmentDriver.so.%{major}*
+#{_libdir}/libindiAlignmentDriver.so.%{major}*
 
 #----------------------------------------------------------------------------
 
