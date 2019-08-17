@@ -95,7 +95,7 @@ This package contains files need to build applications using indilib.
 %files -n %{devname}
 %doc ChangeLog README* NEWS
 %{_libdir}/libindidriver.so
-%{_libdir}/libindiAlignmentDriver.so
+#{_libdir}/libindiAlignmentDriver.so
 %{_libdir}/pkgconfig/libindi.pc
 %{_includedir}/libindi/*.h
 %{_includedir}/libindi/alignment/
