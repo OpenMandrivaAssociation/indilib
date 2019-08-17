@@ -61,7 +61,7 @@ Obsoletes:	%{libname} < %{EVRD}
 This package contains library files of indilib.
 
 %files -n %{libindidriver}
-%{_libdir}/libindidriver.so.%{major}*
+#{_libdir}/libindidriver.so.%{major}*
 
 #----------------------------------------------------------------------------
 
