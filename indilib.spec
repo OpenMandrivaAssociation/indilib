@@ -93,14 +93,14 @@ range of Astronomical devices (telescopes, focusers, CCDs..etc).
 This package contains files need to build applications using indilib.
 
 %files -n %{devname}
-%doc ChangeLog README* NEWS
-%{_libdir}/libindidriver.so
+#doc ChangeLog README* NEWS
+#{_libdir}/libindidriver.so
 #{_libdir}/libindiAlignmentDriver.so
-%{_libdir}/pkgconfig/libindi.pc
-%{_includedir}/libindi/*.h
-%{_includedir}/libindi/alignment/
-%{_includedir}/libindi/connectionplugins/
-%{_includedir}/libindi/stream/
+#{_libdir}/pkgconfig/libindi.pc
+#{_includedir}/libindi/*.h
+#{_includedir}/libindi/alignment/
+#{_includedir}/libindi/connectionplugins/
+#{_includedir}/libindi/stream/
 
 #----------------------------------------------------------------------------
 
@@ -119,7 +119,7 @@ range of Astronomical devices (telescopes, focusers, CCDs..etc).
 This package contains files need to build applications using indilib.
 
 %files -n %{sdevname}
-%{_libdir}/*.a
+#{_libdir}/*.a
 
 #----------------------------------------------------------------------------
 
