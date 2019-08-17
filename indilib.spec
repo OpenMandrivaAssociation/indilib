@@ -43,11 +43,11 @@ that aims to provide backend driver support and automation for a wide
 range of Astronomical devices (telescopes, focusers, CCDs..etc).
 
 %files
-%doc ChangeLog NEWS README TODO
-%{_bindir}/*
-%{_datadir}/indi
-%{_libdir}/indi
-%{_udevrulesdir}/*.rules
+#doc ChangeLog NEWS README TODO
+#{_bindir}/*
+#{_datadir}/indi
+#{_libdir}/indi
+#{_udevrulesdir}/*.rules
 
 #----------------------------------------------------------------------------
 
