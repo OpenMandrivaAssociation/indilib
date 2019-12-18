@@ -129,7 +129,7 @@ This package contains files need to build applications using indilib.
 %setup -qn %{oname}-%{version}
 
 %build
-#global ldflags %{ldflags} -fuse-ld=gold
+%global ldflags %{ldflags} -fuse-ld=bfd
 %cmake  \
 	-DUDEVRULES_INSTALL_DIR=%{_udevrulesdir} \
 	-DINDI_BUILD_QT5_CLIENT=ON
