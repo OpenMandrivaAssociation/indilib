@@ -129,6 +129,8 @@ This package contains files need to build applications using indilib.
 %setup -qn %{oname}-%{version}
 
 %build
+export CC=gcc
+export CXX=g++
 %global ldflags %{ldflags} -fuse-ld=bfd
 %cmake  \
 	-DUDEVRULES_INSTALL_DIR=%{_udevrulesdir} \
