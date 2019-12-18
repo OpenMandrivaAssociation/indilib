@@ -35,6 +35,8 @@ BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Gui)
 BuildRequires:  pkgconfig(Qt5Network)
 BuildRequires:  pkgconfig(Qt5Widgets)
+BuildRequires:  pkgconfig(theora)
+BuildRequires:  pkgconfig(fftw3)
 Provides:	indi = %{EVRD}
 
 %description
