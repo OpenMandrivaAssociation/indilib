@@ -6,6 +6,7 @@
 %define libname %mklibname indi %{major}
 %define libindidriver %mklibname indidriver %{major}
 %define libindiAD %mklibname indiAlignmentDriver %{major}
+%define libindilx200 %mklibname indilx200 %{major}
 %define devname %mklibname indi -d
 %define sdevname %mklibname indi -d -s
 
@@ -17,6 +18,8 @@ License:	LGPLv2+
 Group:		Development/C
 Url:		http://www.indilib.org/
 Source0:	https://github.com/indilib/indi/archive/v%{version}/%{oname}-%{version}.tar.gz
+# Fix build with lld
+Patch0:		indi-1.8.2-lld.patch
 BuildRequires:	cmake
 BuildRequires:	qmake5
 BuildRequires:	ninja
@@ -45,11 +48,11 @@ that aims to provide backend driver support and automation for a wide
 range of Astronomical devices (telescopes, focusers, CCDs..etc).
 
 %files
-#doc ChangeLog NEWS README TODO
-#{_bindir}/*
-#{_datadir}/indi
-#{_libdir}/indi
-#{_udevrulesdir}/*.rules
+%doc ChangeLog NEWS README
+%{_bindir}/*
+%{_datadir}/indi
+%{_libdir}/indi
+%{_udevrulesdir}/*.rules
 
 #----------------------------------------------------------------------------
 
@@ -63,7 +66,7 @@ Obsoletes:	%{libname} < %{EVRD}
 This package contains library files of indilib.
 
 %files -n %{libindidriver}
-#{_libdir}/libindidriver.so.%{major}*
+%{_libdir}/libindidriver.so.%{major}*
 
 #----------------------------------------------------------------------------
 
@@ -75,7 +78,23 @@ Group:		Development/C
 This package contains library files of indilib.
 
 %files -n %{libindiAD}
-#{_libdir}/libindiAlignmentDriver.so.%{major}*
+%{_libdir}/libindiAlignmentDriver.so.%{major}*
+
+#----------------------------------------------------------------------------
+
+%package -n %{libindilx200}
+Summary:	Library files for INDI Lx200
+Group:		Development/C
+
+%description -n %{libindilx200}
+This package contains library files of indilib Lx200.
+
+%files -n %{libindilx200}
+# More of a module than a library, let's not
+# spam the -devel package
+%{_libdir}/libindilx200.so
+%{_libdir}/libindilx200.so.%{major}*
+
 
 #----------------------------------------------------------------------------
 
@@ -95,14 +114,11 @@ range of Astronomical devices (telescopes, focusers, CCDs..etc).
 This package contains files need to build applications using indilib.
 
 %files -n %{devname}
-#doc ChangeLog README* NEWS
-#{_libdir}/libindidriver.so
-#{_libdir}/libindiAlignmentDriver.so
-#{_libdir}/pkgconfig/libindi.pc
-#{_includedir}/libindi/*.h
-#{_includedir}/libindi/alignment/
-#{_includedir}/libindi/connectionplugins/
-#{_includedir}/libindi/stream/
+%doc ChangeLog README* NEWS
+%{_libdir}/libindidriver.so
+%{_libdir}/libindiAlignmentDriver.so
+%{_libdir}/pkgconfig/libindi.pc
+%{_includedir}/libindi
 
 #----------------------------------------------------------------------------
 
@@ -121,20 +137,23 @@ range of Astronomical devices (telescopes, focusers, CCDs..etc).
 This package contains files need to build applications using indilib.
 
 %files -n %{sdevname}
-#{_libdir}/*.a
+%{_libdir}/*.a
 
 #----------------------------------------------------------------------------
 
 %prep
-%setup -qn %{oname}-%{version}
-
-%build
-export CC=gcc
-export CXX=g++
-%global ldflags %{ldflags} -fuse-ld=bfd
+%autosetup -p1 -n %{oname}-%{version}
 %cmake  \
 	-DUDEVRULES_INSTALL_DIR=%{_udevrulesdir} \
-	-DINDI_BUILD_QT5_CLIENT=ON
+	-DINDI_BUILD_QT5_CLIENT=ON \
+	-G Ninja
 
-%make_build
+%build
+#export CC=gcc
+#export CXX=g++
+#global ldflags %{ldflags} -fuse-ld=bfd
 
+%ninja_build -C build
+
+%install
+%ninja_install -C build
