@@ -19,7 +19,7 @@ Group:		Development/C
 Url:		http://www.indilib.org/
 Source0:	https://github.com/indilib/indi/archive/v%{version}/%{oname}-%{version}.tar.gz
 # Fix build with lld
-Patch0:		indi-1.8.2-lld.patch
+Patch0:		indi-1.8.5-lld.patch
 BuildRequires:	cmake
 BuildRequires:	qmake5
 BuildRequires:	ninja
