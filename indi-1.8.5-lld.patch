@@ -1,12 +1,12 @@
-diff -uraN indi-1.8.5/cmake_modules/CMakeCommon.cmake omw-indi-1.8.5/cmake_modules/CMakeCommon.cmake
---- indi-1.8.5/cmake_modules/CMakeCommon.cmake	2020-04-19 16:19:26.000000000 +0200
-+++ omw-indi-1.8.5/cmake_modules/CMakeCommon.cmake	2020-07-11 15:02:21.483531328 +0200
-@@ -39,7 +39,7 @@
+diff -uraN indi-1.9.2/cmake_modules/CMakeCommon.cmake omv-indi-1.9.2/cmake_modules/CMakeCommon.cmake
+--- indi-1.9.2/cmake_modules/CMakeCommon.cmake	2021-09-13 15:53:58.000000000 +0200
++++ omv-indi-1.9.2/cmake_modules/CMakeCommon.cmake	2021-11-06 13:06:35.480483232 +0100
+@@ -47,7 +47,7 @@
      SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${SEC_COMP_FLAGS}")
      SET(SEC_LINK_FLAGS "")
      IF (NOT APPLE AND NOT CYGWIN AND NOT ${CMAKE_SYSTEM_NAME} MATCHES "FreeBSD")
 -        SET(SEC_LINK_FLAGS "${SEC_LINK_FLAGS} -Wl,-z,nodump -Wl,-z,noexecstack -Wl,-z,relro -Wl,-z,now")
 +        SET(SEC_LINK_FLAGS "${SEC_LINK_FLAGS} -Wl,-z,noexecstack -Wl,-z,relro -Wl,-z,now")
      ENDIF ()
-     IF (NOT ANDROID AND NOT APPLE)
-         SET(SEC_LINK_FLAGS "${SEC_LINK_FLAGS} -pie")
+     SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${SEC_LINK_FLAGS}")
+     SET(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} ${SEC_LINK_FLAGS}")
