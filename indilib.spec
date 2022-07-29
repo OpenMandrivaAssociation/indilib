@@ -30,6 +30,7 @@ BuildRequires:	libfli-devel
 BuildRequires:	libnova-devel
 BuildRequires:	pkgconfig(cfitsio)
 BuildRequires:	pkgconfig(libcurl)
+BuildRequires:	pkgconfig(libev)
 BuildRequires:	pkgconfig(gsl)
 BuildRequires:  pkgconfig(gmock)
 BuildRequires:	pkgconfig(libusb)
