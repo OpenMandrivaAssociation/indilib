@@ -41,6 +41,7 @@ BuildRequires:  pkgconfig(Qt5Network)
 BuildRequires:  pkgconfig(Qt5Widgets)
 BuildRequires:  pkgconfig(theora)
 BuildRequires:  pkgconfig(fftw3)
+BuildRequires:	pkgconfig(openssl)
 Provides:	indi = %{EVRD}
 
 %description
@@ -151,10 +152,6 @@ This package contains files need to build applications using indilib.
 	-G Ninja
 
 %build
-#export CC=gcc
-#export CXX=g++
-#global ldflags %{ldflags} -fuse-ld=bfd
-
 %ninja_build -C build
 
 %install
