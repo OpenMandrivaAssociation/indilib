@@ -12,7 +12,7 @@
 
 Summary:	Library to control astronomical devices
 Name:		indilib
-Version:	1.9.7
+Version:	1.9.8
 Release:	1
 License:	LGPLv2+
 Group:		Development/C
@@ -147,6 +147,7 @@ This package contains files need to build applications using indilib.
 %cmake  \
 	-DUDEVRULES_INSTALL_DIR=%{_udevrulesdir} \
 	-DINDI_BUILD_QT5_CLIENT=ON \
+	-DLIBEV_INCLUDE_DIR=%{_includedir}/libev \
 	-G Ninja
 
 %build
