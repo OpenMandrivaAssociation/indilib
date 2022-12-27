@@ -7,6 +7,8 @@
 %define libindidriver %mklibname indidriver %{major}
 %define libindiAD %mklibname indiAlignmentDriver %{major}
 %define libindilx200 %mklibname indilx200 %{major}
+%define libindiclient %mklibname indiclient %{major}
+%define libindiclientqt %mklibname indiclientqt %{major}
 %define devname %mklibname indi -d
 %define sdevname %mklibname indi -d -s
 
@@ -100,11 +102,34 @@ This package contains library files of indilib Lx200.
 
 #----------------------------------------------------------------------------
 
+%package -n %{libindiclient}
+Summary:	Library files for INDI
+Group:		Development/C
+
+%description -n %{libindiclient}
+This package contains library files of indilib.
+
+%files -n %{libindiclient}
+%{_libdir}/libindiclient.so.%{major}*
+
+#----------------------------------------------------------------------------
+%package -n %{libindiclientqt}
+Summary:	Library files for INDI
+Group:		Development/C
+
+%description -n %{libindiclientqt}
+This package contains library files of indilib.
+
+%files -n %{libindiclientqt}
+%{_libdir}/libindiclientqt.so.%{major}*
+
 %package -n %{devname}
 Summary:	INDI devellopment files
 Group:		Development/C
 Requires:	%{libindidriver} = %{EVRD}
 Requires:	%{libindiAD} = %{EVRD}
+Requires:	%{libindiclient} = %{EVRD}
+Requires:	%{libindiclientqt} = %{EVRD}
 Provides:	%{name}-devel = %{EVRD}
 Provides:	indi-devel = %{EVRD}
 
@@ -119,6 +144,8 @@ This package contains files need to build applications using indilib.
 %doc ChangeLog README* NEWS
 %{_libdir}/libindidriver.so
 %{_libdir}/libindiAlignmentDriver.so
+%{_libdir}/libindiclient.so
+%{_libdir}/libindiclientqt.so
 %{_libdir}/pkgconfig/libindi.pc
 %{_includedir}/libindi
 
