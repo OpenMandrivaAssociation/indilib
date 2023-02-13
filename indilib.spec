@@ -2,7 +2,7 @@
 %define _disable_lto 1
 %define oname indi
 
-%define major 1
+%define major 2
 %define libname %mklibname indi %{major}
 %define libindidriver %mklibname indidriver %{major}
 %define libindiAD %mklibname indiAlignmentDriver %{major}
@@ -14,7 +14,7 @@
 
 Summary:	Library to control astronomical devices
 Name:		indilib
-Version:	1.9.9
+Version:	2.0.0
 Release:	1
 License:	LGPLv2+
 Group:		Development/C
