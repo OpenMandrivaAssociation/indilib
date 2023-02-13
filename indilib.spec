@@ -2,7 +2,7 @@
 %define _disable_lto 1
 %define oname indi
 
-%define major 1
+%define major 2
 %define libname %mklibname indi %{major}
 %define libindidriver %mklibname indidriver %{major}
 %define libindiAD %mklibname indiAlignmentDriver %{major}
