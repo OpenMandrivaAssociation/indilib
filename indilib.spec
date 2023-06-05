@@ -11,11 +11,17 @@
 %define libindiclientqt %mklibname indiclientqt %{major}
 %define devname %mklibname indi -d
 %define sdevname %mklibname indi -d -s
+%define oldlibname %mklibname indi 2
+%define oldlibindidriver %mklibname indidriver 2
+%define oldlibindiAD %mklibname indiAlignmentDriver 2
+%define oldlibindilx200 %mklibname indilx200 2
+%define oldlibindiclient %mklibname indiclient 2
+%define oldlibindiclientqt %mklibname indiclientqt 2
 
 Summary:	Library to control astronomical devices
 Name:		indilib
-Version:	2.0.1
-Release:	2
+Version:	2.0.2
+Release:	1
 License:	LGPLv2+
 Group:		Development/C
 Url:		http://www.indilib.org/
@@ -65,6 +71,7 @@ Summary:	Library files for INDI
 Group:		Development/C
 Conflicts:	%{_lib}indi0 < 0.9.8
 Obsoletes:	%{libname} < %{EVRD}
+Obsoletes:	%{oldlibindidriver} < %{EVRD}
 
 %description -n %{libindidriver}
 This package contains library files of indilib.
@@ -77,6 +84,7 @@ This package contains library files of indilib.
 %package -n %{libindiAD}
 Summary:	Library files for INDI
 Group:		Development/C
+Obsoletes:	%{oldlibindiAD} < %{EVRD}
 
 %description -n %{libindiAD}
 This package contains library files of indilib.
@@ -89,6 +97,7 @@ This package contains library files of indilib.
 %package -n %{libindilx200}
 Summary:	Library files for INDI Lx200
 Group:		Development/C
+Obsoletes:	%{oldlibindilx200} < %{EVRD}
 
 %description -n %{libindilx200}
 This package contains library files of indilib Lx200.
@@ -105,6 +114,7 @@ This package contains library files of indilib Lx200.
 %package -n %{libindiclient}
 Summary:	Library files for INDI
 Group:		Development/C
+Obsoletes:	%{oldlibindiclient} < %{EVRD}
 
 %description -n %{libindiclient}
 This package contains library files of indilib.
@@ -113,15 +123,19 @@ This package contains library files of indilib.
 %{_libdir}/libindiclient.so.%{major}*
 
 #----------------------------------------------------------------------------
+
 %package -n %{libindiclientqt}
 Summary:	Library files for INDI
 Group:		Development/C
+Obsoletes:	%{oldlibindiclientqt} < %{EVRD}
 
 %description -n %{libindiclientqt}
 This package contains library files of indilib.
 
 %files -n %{libindiclientqt}
 %{_libdir}/libindiclientqt.so.%{major}*
+
+#----------------------------------------------------------------------------
 
 %package -n %{devname}
 Summary:	INDI devellopment files
@@ -174,7 +188,7 @@ This package contains files need to build applications using indilib.
 %autosetup -p1 -n %{oname}-%{version}
 %cmake  \
 	-DUDEVRULES_INSTALL_DIR=%{_udevrulesdir} \
-	-DINDI_BUILD_QT5_CLIENT=ON \
+	-DINDI_BUILD_QT5_CLIENT:BOOL=ON \
 	-DLIBEV_INCLUDE_DIR=%{_includedir}/libev \
 	-G Ninja
 
