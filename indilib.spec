@@ -31,7 +31,7 @@ Patch0:		indi-1.8.5-lld.patch
 BuildRequires:	cmake
 BuildRequires:	qmake5
 BuildRequires:	ninja
-BuildRequires:	systemd-units
+BuildRequires:	systemd
 BuildRequires:	boost-devel
 BuildRequires:	jpeg-devel
 BuildRequires:	libfli-devel
