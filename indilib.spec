@@ -20,7 +20,7 @@
 
 Summary:	Library to control astronomical devices
 Name:		indilib
-Version:	2.1.4
+Version:	2.1.6
 Release:	1
 License:	LGPLv2+
 Group:		Development/C
