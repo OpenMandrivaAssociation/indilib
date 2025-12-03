@@ -29,7 +29,7 @@ Source0:	https://github.com/indilib/indi/archive/v%{version}/%{oname}-%{version}
 # Fix build with lld
 #Patch0:		indi-1.8.5-lld.patch
 BuildRequires:	cmake
-BuildRequires:	qmake5
+BuildRequires:	qmake-qt6
 BuildRequires:	ninja
 BuildRequires:	systemd
 BuildRequires:	boost-devel
@@ -43,10 +43,10 @@ BuildRequires:	pkgconfig(gsl)
 BuildRequires:  pkgconfig(gmock)
 BuildRequires:	pkgconfig(libusb)
 BuildRequires:	pkgconfig(zlib)
-BuildRequires:  pkgconfig(Qt5Core)
-BuildRequires:  pkgconfig(Qt5Gui)
-BuildRequires:  pkgconfig(Qt5Network)
-BuildRequires:  pkgconfig(Qt5Widgets)
+BuildRequires:  pkgconfig(Qt6Core)
+BuildRequires:  pkgconfig(Qt6Gui)
+BuildRequires:  pkgconfig(Qt6Network)
+BuildRequires:  pkgconfig(Qt6Widgets)
 BuildRequires:  pkgconfig(theora)
 BuildRequires:  pkgconfig(fftw3)
 BuildRequires:	pkgconfig(openssl)
@@ -188,7 +188,7 @@ This package contains files need to build applications using indilib.
 %autosetup -p1 -n %{oname}-%{version}
 %cmake  \
 	-DUDEVRULES_INSTALL_DIR=%{_udevrulesdir} \
-	-DINDI_BUILD_QT5_CLIENT:BOOL=ON \
+	-DINDI_BUILD_QT_CLIENT:BOOL=ON \
 	-DLIBEV_INCLUDE_DIR=%{_includedir}/libev \
 	-G Ninja
 
