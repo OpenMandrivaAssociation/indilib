@@ -188,7 +188,7 @@ This package contains files need to build applications using indilib.
 %autosetup -p1 -n %{oname}-%{version}
 %cmake  \
 	-DUDEVRULES_INSTALL_DIR=%{_udevrulesdir} \
-	-INDI_BUILD_QT_CLIENT:BOOL=ON \
+	-DINDI_BUILD_QT_CLIENT:BOOL=ON \
 	-DLIBEV_INCLUDE_DIR=%{_includedir}/libev \
 	-G Ninja
 
