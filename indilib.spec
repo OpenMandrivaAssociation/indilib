@@ -39,6 +39,8 @@ BuildRequires:	libnova-devel
 BuildRequires:	pkgconfig(cfitsio)
 BuildRequires:	pkgconfig(libcurl)
 BuildRequires:	pkgconfig(libev)
+BuildRequires:	pkgconfig(lber)
+BuildRequires:	pkgconfig(ldap)
 BuildRequires:	pkgconfig(gsl)
 BuildRequires:  pkgconfig(gmock)
 BuildRequires:	pkgconfig(libusb)
